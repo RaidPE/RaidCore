@@ -19,10 +19,7 @@ class ServerCommand extends Command
 
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
-        if(!$this->testPermission($sender))
-        {
-            return true;
-        }
+        if(!$this->testPermission($sender)) return true;
         $sender->sendMessage('You are now playing on ' . Core::getInstance()->getServerName());
         return true;
     }
