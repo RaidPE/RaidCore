@@ -3,6 +3,7 @@
 namespace Raid;
 
 use pocketmine\Server;
+use Raid\command\ServerCommand;
 use Raid\utils\Logger;
 
 class Core
@@ -31,5 +32,12 @@ class Core
     public function getServerName()
     {
         return $this->server->getProperty('server-name', 'raidpe.com');
+    }
+
+    public function registerCoreCommands()
+    {
+        $this->server->getCommandMap()->registerAll('raid', [
+            new ServerCommand('server')
+        ]);
     }
 }
