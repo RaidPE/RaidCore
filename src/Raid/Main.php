@@ -11,7 +11,7 @@ class Main extends PluginBase
 
     public function onLoad()
     {
-        $this->core = new Core($this->getServer());
+        $this->core = new Core($this);
         $this->core->registerCoreCommands();
     }
 }
