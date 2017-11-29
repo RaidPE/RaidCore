@@ -27,6 +27,8 @@ class Core
         $this->plugin = $plugin;
         $this->server = $plugin->getServer();
         $this->logger = new Logger('Core');
+
+        $this->registerCoreCommands();
     }
 
     public static function getInstance() : Core
