@@ -1,8 +1,0 @@
-name: RaidCore
-author: RaidPE
-
-version: 1.2.5_171128
-api:
-  - 3.0.0-ALPHA9
-
-main: Raid\Main
