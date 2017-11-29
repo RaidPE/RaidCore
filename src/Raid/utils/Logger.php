@@ -5,32 +5,9 @@ namespace Raid\utils;
 use LogLevel;
 use pocketmine\Server;
 
-class Logger implements \AttachableLogger{
+class Logger{
 
     private $prefix;
-
-    /** @var \LoggerAttachment[] */
-    private $attachments = [];
-
-    public function addAttachment(\LoggerAttachment $attachment)
-    {
-        $this->attachments[spl_object_hash($attachment)] = $attachment;
-    }
-
-    public function removeAttachment(\LoggerAttachment $attachment)
-    {
-        unset($this->attachments[spl_object_hash($attachment)]);
-    }
-
-    public function removeAttachments()
-    {
-        $this->attachments = [];
-    }
-
-    public function getAttachments()
-    {
-        return $this->attachments;
-    }
 
     public function __construct(string $prefix)
     {
@@ -85,6 +62,5 @@ class Logger implements \AttachableLogger{
     public function log($level, $message)
     {
         Server::getInstance()->getLogger()->log($level, $this->prefix . $message);
-        foreach($this->attachments as $attachment) $attachment->log($level, $message);
     }
 }
