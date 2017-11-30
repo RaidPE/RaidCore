@@ -6,6 +6,8 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use Raid\Core;
+use Raid\lang\TextContainer;
+use Raid\lang\TranslationContainer;
 
 class VersionCommand extends Command
 {
@@ -22,8 +24,14 @@ class VersionCommand extends Command
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
         if(!$this->testPermission($sender)) return true;
-        $sender->sendMessage("RaidPE servers are running PocketMine.\nServer version: " . $sender->getServer()->getVersion() . "(API: " . $sender->getServer()->getApiVersion() . ")\nCore version: " . Core::getInstance()->getCoreVersion() . "\nServer name: " . Core::getInstance()->getServerName());
-        if($sender instanceof Player) $sender->addTitle('RaidPE', 'Thanks for playing!');
+        $sender->sendMessage(Core::getInstance()->getLanguage()->translate(new TranslationContainer('commands.version', [
+            $sender->getServer()->getVersion(),
+            $sender->getServer()->getApiVersion(),
+            Core::getInstance()->getCoreVersion(),
+            Core::getInstance()->getServerName()
+        ])));
+        if($sender instanceof Player)
+            $sender->addTitle('RaidPE', Core::getInstance()->getLanguage()->translate(new TextContainer('commands.version.title')));
         return true;
     }
 }

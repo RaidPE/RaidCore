@@ -6,7 +6,6 @@ use pocketmine\Server;
 use Raid\command\ServerCommand;
 use Raid\command\VersionCommand;
 use Raid\lang\Language;
-use Raid\lang\TranslationContainer;
 use Raid\utils\Logger;
 
 class Core
@@ -66,5 +65,10 @@ class Core
     public function getLogger() : Logger
     {
         return $this->logger;
+    }
+
+    public function getLanguage() : Language
+    {
+        return $this->lang;
     }
 }
