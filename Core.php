@@ -7,6 +7,7 @@ use Raid\command\ServerCommand;
 use Raid\command\VersionCommand;
 use Raid\lang\Language;
 use Raid\utils\Logger;
+use Raid\utils\MySQL;
 
 class Core
 {
@@ -24,6 +25,9 @@ class Core
 
     /** @var Language */
     private $lang;
+
+    /** @var MySQL */
+    private $database;
 
     public function __construct(Main $plugin)
     {
@@ -70,5 +74,15 @@ class Core
     public function getLanguage() : Language
     {
         return $this->lang;
+    }
+
+    public function initDatabase()
+    {
+        $this->database = new MySQL($this->plugin);
+    }
+
+    public function getDatabase() : MySQL
+    {
+        return $this->database;
     }
 }
