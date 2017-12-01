@@ -18,6 +18,7 @@ class Main extends PluginBase
 
     public function onDisable()
     {
-        Core::getInstance()->getDatabase()->closeAll();
+        if(Core::getInstance()->getDatabase() !== null)
+            Core::getInstance()->getDatabase()->closeAll();
     }
 }

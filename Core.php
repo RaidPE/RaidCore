@@ -81,7 +81,7 @@ class Core
         $this->database = new MySQL($this->plugin);
     }
 
-    public function getDatabase() : MySQL
+    public function getDatabase()
     {
         return $this->database;
     }

@@ -6,6 +6,8 @@ use libasynql\ClearMysqlTask;
 use libasynql\DirectQueryMysqlTask;
 use libasynql\MysqlCredentials;
 use libasynql\PingMysqlTask;
+use libasynql\QueryMysqlTask;
+use libasynql\result\MysqlResult;
 use pocketmine\plugin\Plugin;
 
 class MySQL
@@ -26,6 +28,8 @@ class MySQL
             $plugin->getServer()->getConfigString('database-name', 'raid'),
             $plugin->getServer()->getConfigInt('database-port', 3306)
         ));
+        // Testing
+        $this->query('SELECT 1;');
     }
 
     public function closeAll()
@@ -41,5 +45,33 @@ class MySQL
     public function asyncQuery(string $query, array $args = [], callable $callback = null)
     {
         $this->plugin->getServer()->getScheduler()->scheduleAsyncTask(new DirectQueryMysqlTask($this->credentials, $query, $args, $callback));
+    }
+
+    public function query(string $query, array $args = []) : MysqlResult
+    {
+        return (new TempQueryTask($this->credentials, $query, $args))->query();
+    }
+}
+
+class TempQueryTask extends QueryMysqlTask
+{
+    private $query;
+
+    private $args;
+
+    protected function execute(){}
+
+    public function __construct(MysqlCredentials $credentials, string $query, array $args = [])
+    {
+        parent::__construct($credentials);
+        $this->query = $query;
+        $this->args = serialize($args);
+
+    }
+
+    public function query() : MysqlResult
+    {
+        $args = unserialize($this->args);
+        return MysqlResult::executeQuery($this->getMysqli(), $this->query, $args);
     }
 }
