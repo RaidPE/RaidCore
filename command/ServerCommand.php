@@ -21,7 +21,10 @@ class ServerCommand extends Command
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
         if(!$this->testPermission($sender)) return true;
-        $sender->sendMessage(Core::getInstance()->getLanguage()->translate(new TextContainer('commands.server.name')));
+        $sender->sendMessage(Core::getInstance()->getLanguage()->translate(new TextContainer('commands.server.name', [
+            Core::getInstance()->getServerName(),
+            Core::getInstance()->getServerArea()
+        ])));
         return true;
     }
 }

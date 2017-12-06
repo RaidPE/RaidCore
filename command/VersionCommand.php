@@ -28,7 +28,8 @@ class VersionCommand extends Command
             $sender->getServer()->getVersion(),
             $sender->getServer()->getApiVersion(),
             Core::getInstance()->getCoreVersion(),
-            Core::getInstance()->getServerName()
+            Core::getInstance()->getServerName(),
+            Core::getInstance()->getServerArea()
         ])));
         if($sender instanceof Player)
             $sender->addTitle('RaidPE', Core::getInstance()->getLanguage()->translate(new TextContainer('commands.version.title')));

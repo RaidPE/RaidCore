@@ -47,7 +47,12 @@ class Core
 
     public function getServerName() : string
     {
-        return $this->server->getProperty('server-name', 'raidpe.com');
+        return $this->server->getProperty('server-name');
+    }
+
+    public function getServerArea() : string
+    {
+        return $this->getLanguage()->translate($this->server->getProperty('server-area'));
     }
 
     public function getCoreVersion() : string
