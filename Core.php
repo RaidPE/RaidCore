@@ -6,6 +6,7 @@ use pocketmine\Server;
 use Raid\command\ServerCommand;
 use Raid\command\VersionCommand;
 use Raid\lang\Language;
+use Raid\lang\TextContainer;
 use Raid\utils\Logger;
 use Raid\utils\MySQL;
 
@@ -52,7 +53,7 @@ class Core
 
     public function getServerArea() : string
     {
-        return $this->getLanguage()->translate($this->server->getProperty('server-area'));
+        return $this->getLanguage()->translate(new TextContainer('server.area.' . $this->server->getProperty('server-area')));
     }
 
     public function getCoreVersion() : string
